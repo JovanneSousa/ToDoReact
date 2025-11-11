@@ -18,7 +18,7 @@ const initialState: TarefasState = {
 export const buscarTarefas = createAsyncThunk(
   '/Tarefa/ObterTodos',
   async () => {
-    const response = await api.get<Tarefa[]>('/Tarefas')
+    const response = await api.get<Tarefa[]>('api/Tarefa/ObterTodos')
     return response.data
   }
 )

@@ -1,13 +1,22 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Tarefa from '../../components/Tarefa'
 import { MainContainer, Titulo } from '../../styles'
-import { RootReducer } from '../../store'
+import { AppDispatch, RootReducer } from '../../store'
+import { useEffect } from 'react'
+import { buscarTarefas } from '../../store/reducers/tarefas'
+import { Status } from '../../utils/enums/Tarefa'
 
 const ListaDeTarefas = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const { itens } = useSelector((state: RootReducer) => state.tarefas)
   const { termo, criterio, valor } = useSelector(
     (state: RootReducer) => state.filtro
   )
+
+  useEffect(() => {
+    console.log('Vai chamar a API')
+    dispatch(buscarTarefas())
+  }, [dispatch])
 
   const filtraTarefas = () => {
     let tarefasFiltradas = itens

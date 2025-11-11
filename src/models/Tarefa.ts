@@ -18,7 +18,7 @@ class Tarefa {
   ) {
     this.titulo = titulo
     this.prioridade = prioridade
-    this.status = status
+    this.status = status === 0 ? enums.Status.PENDENTE : enums.Status.CONCLUIDA
     this.descricao = descricao
     this.id = id
     this.data = data

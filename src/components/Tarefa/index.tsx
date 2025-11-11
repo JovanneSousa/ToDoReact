@@ -22,7 +22,7 @@ const Tarefa = ({
 }: Props) => {
   const dispatch = useDispatch<AppDispatch>()
   const [estaEditando, setEstaEditando] = useState(false)
-  const [descricao, setDescricao] = useState('')
+  const [descricao, setDescricao] = useState(descricaoOriginal)
 
   function cancelarEdicao() {
     setEstaEditando(false)
@@ -46,6 +46,10 @@ const Tarefa = ({
     )
   }
 
+  const exibeStatus = (status: enums.Status) => {
+    return status === enums.Status.PENDENTE ? 'Pendente' : 'Concluída'
+  }
+
   return (
     <S.Card>
       <label htmlFor={titulo}>
@@ -64,7 +68,7 @@ const Tarefa = ({
         {prioridade}
       </S.Tag>
       <S.Tag parametro="status" status={status}>
-        {status}
+        {exibeStatus(status)}
       </S.Tag>
       <S.Descricao
         disabled={!estaEditando}
