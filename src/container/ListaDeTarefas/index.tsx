@@ -61,6 +61,7 @@ const ListaDeTarefas = () => {
               titulo={t.titulo}
               status={t.status}
               prioridade={t.prioridade}
+              data={t.data}
             />
           </li>
         ))}

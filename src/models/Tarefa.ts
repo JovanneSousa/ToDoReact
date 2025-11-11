@@ -5,6 +5,7 @@ class Tarefa {
   prioridade: enums.Prioridade
   status: enums.Status
   descricao: string
+  data: Date | string
   id: number
 
   constructor(
@@ -12,13 +13,15 @@ class Tarefa {
     prioridade: enums.Prioridade,
     status: enums.Status,
     descricao: string,
-    id: number
+    id: number,
+    data: Date
   ) {
     this.titulo = titulo
     this.prioridade = prioridade
     this.status = status
     this.descricao = descricao
     this.id = id
+    this.data = data
   }
 }
 

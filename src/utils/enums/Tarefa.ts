@@ -5,6 +5,6 @@ export enum Prioridade {
 }
 
 export enum Status {
-  PENDENTE = 'pendente',
-  CONCLUIDA = 'concluída'
+  PENDENTE = 0,
+  CONCLUIDA = 1
 }

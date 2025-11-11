@@ -1,50 +1,56 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import Tarefa from '../../models/Tarefa'
 import * as enums from '../../utils/enums/Tarefa'
+import { api } from '../../services/api'
 
 type TarefasState = {
   itens: Tarefa[]
+  loading: boolean
+  error: string | null
 }
 
 const initialState: TarefasState = {
-  itens: []
+  itens: [],
+  loading: false,
+  error: null
 }
+
+export const buscarTarefas = createAsyncThunk(
+  '/Tarefa/ObterTodos',
+  async () => {
+    const response = await api.get<Tarefa[]>('/Tarefas')
+    return response.data
+  }
+)
+
+export const cadastrarTarefa = createAsyncThunk(
+  '/Tarefas',
+  async (tarefa: Omit<Tarefa, 'id'>) => {
+    const response = await api.post<Tarefa>('Tarefas', tarefa)
+    return response.data
+  }
+)
+
+export const editarTarefa = createAsyncThunk(
+  '/Tarefas/{id}',
+  async (tarefa: Tarefa) => {
+    const reponse = await api.put(`/Tarefas/${tarefa.id}`, tarefa)
+    return reponse.data
+  }
+)
+
+export const removerTarefa = createAsyncThunk(
+  '/Tarefas/Remover',
+  async (id: number) => {
+    await api.delete(`/Tarefas/${id}`)
+    return id
+  }
+)
 
 const tarefasSlice = createSlice({
   name: 'tarefas',
   initialState,
   reducers: {
-    remover: (state, action: PayloadAction<number>) => {
-      state.itens = [
-        ...state.itens.filter((tarefa) => tarefa.id !== action.payload)
-      ]
-    },
-    editar: (state, action: PayloadAction<Tarefa>) => {
-      const indexDaTarefa = state.itens.findIndex(
-        (t) => t.id === action.payload.id
-      )
-      if (indexDaTarefa >= 0) {
-        state.itens[indexDaTarefa] = action.payload
-      }
-    },
-    cadatrar: (state, action: PayloadAction<Omit<Tarefa, 'id'>>) => {
-      const tarefaJaExiste = state.itens.find(
-        (tarefa) =>
-          tarefa.titulo.toLowerCase() === action.payload.titulo.toLowerCase()
-      )
-
-      if (tarefaJaExiste) {
-        alert('Já existe uma tarefa com esse nome')
-      } else {
-        const ultimaTarefa = state.itens[state.itens.length - 1]
-
-        const tarefaNova = {
-          ...action.payload,
-          id: ultimaTarefa ? ultimaTarefa.id + 1 : 1
-        }
-        state.itens.push(tarefaNova)
-      }
-    },
     alteraStatus: (
       state,
       action: PayloadAction<{ id: number; finalizado: boolean }>
@@ -58,8 +64,30 @@ const tarefasSlice = createSlice({
           : enums.Status.PENDENTE
       }
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(buscarTarefas.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(buscarTarefas.fulfilled, (state, action) => {
+        state.loading = false
+        state.itens = action.payload
+      })
+      .addCase(cadastrarTarefa.fulfilled, (state, action) => {
+        state.itens.push(action.payload)
+      })
+      .addCase(editarTarefa.fulfilled, (state, action) => {
+        const index = state.itens.findIndex((t) => t.id === action.payload.id)
+        if (index >= 0) {
+          state.itens[index] = action.payload
+        }
+      })
+      .addCase(removerTarefa.fulfilled, (state, action) => {
+        state.itens = state.itens.filter((t) => t.id !== action.payload)
+      })
   }
 })
 
-export const { remover, editar, cadatrar, alteraStatus } = tarefasSlice.actions
+export const { alteraStatus } = tarefasSlice.actions
 export default tarefasSlice.reducer

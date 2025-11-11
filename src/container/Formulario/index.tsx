@@ -6,25 +6,27 @@ import { BotaoSalvar, MainContainer, Titulo } from '../../styles/'
 import { Campo } from '../../styles'
 import { Form, Opcoes, Opcao } from './styles'
 import * as enums from '../../utils/enums/Tarefa'
-import { cadatrar } from '../../store/reducers/tarefas'
+import { AppDispatch } from '../../store'
+import { cadastrarTarefa } from '../../store/reducers/tarefas'
 
 const Formulario = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
 
   const [titulo, setTitulo] = useState('')
   const [descricao, setDescricao] = useState('')
   const [prioridade, setPrioridade] = useState(enums.Prioridade.NORMAL)
 
-  const cadastrarTarefa = (e: FormEvent) => {
+  const cadastrarTarefaFunction = (e: FormEvent) => {
     e.preventDefault()
 
     dispatch(
-      cadatrar({
+      cadastrarTarefa({
         titulo,
         prioridade,
         descricao,
-        status: enums.Status.PENDENTE
+        status: enums.Status.PENDENTE,
+        data: new Date().toISOString()
       })
     )
     navigate('/')
@@ -33,7 +35,7 @@ const Formulario = () => {
   return (
     <MainContainer>
       <Titulo>Nova tarefa</Titulo>
-      <Form onSubmit={cadastrarTarefa}>
+      <Form onSubmit={cadastrarTarefaFunction}>
         <Campo
           value={titulo}
           onChange={(e) => setTitulo(e.target.value)}

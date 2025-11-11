@@ -1,11 +1,15 @@
-import { useDispatch } from 'react-redux'
-import { ChangeEvent, useEffect, useState } from 'react'
-
-import * as S from './styles'
-import { remover, editar, alteraStatus } from '../../store/reducers/tarefas'
-import TarefaClass from '../../models/Tarefa'
-import { Botao, BotaoSalvar } from '../../styles'
+import {
+  buscarTarefas,
+  editarTarefa,
+  removerTarefa
+} from '../../store/reducers/tarefas'
 import * as enums from '../../utils/enums/Tarefa'
+import { Botao, BotaoSalvar } from '../../styles'
+import * as S from './styles'
+import { useState, useEffect, ChangeEvent } from 'react'
+import TarefaClass from '../../models/Tarefa'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../../store'
 
 type Props = TarefaClass
 
@@ -16,15 +20,9 @@ const Tarefa = ({
   status,
   id
 }: Props) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const [estaEditando, setEstaEditando] = useState(false)
   const [descricao, setDescricao] = useState('')
-
-  useEffect(() => {
-    if (descricaoOriginal.length > 0) {
-      setDescricao(descricaoOriginal)
-    }
-  }, [descricaoOriginal])
 
   function cancelarEdicao() {
     setEstaEditando(false)
@@ -32,10 +30,18 @@ const Tarefa = ({
   }
 
   const alteraStatusTarefa = (e: ChangeEvent<HTMLInputElement>) => {
+    const novoStatus = e.target.checked
+      ? enums.Status.CONCLUIDA
+      : enums.Status.PENDENTE
+
     dispatch(
-      alteraStatus({
+      editarTarefa({
         id,
-        finalizado: e.target.checked
+        titulo,
+        descricao,
+        prioridade,
+        status: novoStatus,
+        data: new Date().toISOString()
       })
     )
   }
@@ -48,7 +54,7 @@ const Tarefa = ({
           onChange={alteraStatusTarefa}
           type="checkbox"
           id={titulo}
-        ></input>
+        />
         <S.Titulo>
           {estaEditando && <em>Editando: </em>}
           {titulo}
@@ -71,12 +77,13 @@ const Tarefa = ({
             <BotaoSalvar
               onClick={() => {
                 dispatch(
-                  editar({
-                    descricao,
+                  editarTarefa({
                     id,
+                    titulo,
+                    descricao,
                     prioridade,
                     status,
-                    titulo
+                    data: new Date().toISOString()
                   })
                 )
                 setEstaEditando(false)
@@ -91,7 +98,9 @@ const Tarefa = ({
         ) : (
           <>
             <Botao onClick={() => setEstaEditando(true)}>Editar</Botao>
-            <S.BotaoCancelarERemover onClick={() => dispatch(remover(id))}>
+            <S.BotaoCancelarERemover
+              onClick={() => dispatch(removerTarefa(id))}
+            >
               Remover
             </S.BotaoCancelarERemover>
           </>
