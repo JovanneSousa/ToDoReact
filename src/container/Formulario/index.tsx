@@ -8,6 +8,7 @@ import { Form, Opcoes, Opcao } from './styles'
 import * as enums from '../../utils/enums/Tarefa'
 import { AppDispatch } from '../../store'
 import { cadastrarTarefa } from '../../store/reducers/tarefas'
+import { exibePrioridade } from '../../components/Tarefa'
 
 const Formulario = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -50,23 +51,27 @@ const Formulario = () => {
         ></Campo>
         <Opcoes>
           <p>Prioridade</p>
-          {Object.values(enums.Prioridade).map((prioridade) => {
-            return (
-              <Opcao key={prioridade}>
-                <input
-                  value={prioridade}
-                  name="prioridade"
-                  type="radio"
-                  onChange={(e) =>
-                    setPrioridade(e.target.value as enums.Prioridade)
-                  }
-                  id={prioridade}
-                  defaultChecked={prioridade === enums.Prioridade.NORMAL}
-                />{' '}
-                <label htmlFor={prioridade}>{prioridade}</label>
-              </Opcao>
-            )
-          })}
+          {Object.values(enums.Prioridade)
+            .filter((v) => typeof v === 'number')
+            .map((prioridade) => {
+              return (
+                <Opcao key={prioridade}>
+                  <input
+                    value={prioridade}
+                    name="prioridade"
+                    type="radio"
+                    onChange={(e) =>
+                      setPrioridade(Number(e.target.value) as enums.Prioridade)
+                    }
+                    id={`prioridade-${prioridade}`}
+                    defaultChecked={prioridade === enums.Prioridade.NORMAL}
+                  />{' '}
+                  <label htmlFor={`prioridade-${prioridade}`}>
+                    {exibePrioridade(prioridade as enums.Prioridade)}
+                  </label>
+                </Opcao>
+              )
+            })}
         </Opcoes>
         <BotaoSalvar type="submit">Cadastrar</BotaoSalvar>
       </Form>

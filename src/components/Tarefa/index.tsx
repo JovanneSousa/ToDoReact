@@ -13,6 +13,13 @@ import { AppDispatch } from '../../store'
 
 type Props = TarefaClass
 
+export const exibePrioridade = (prioridade: enums.Prioridade) => {
+  if (prioridade == enums.Prioridade.URGENTE) return 'Urgente'
+  if (prioridade == enums.Prioridade.IMPORTANTE) return 'Importante'
+
+  return 'Normal'
+}
+
 const Tarefa = ({
   descricao: descricaoOriginal,
   prioridade,
@@ -65,7 +72,7 @@ const Tarefa = ({
         </S.Titulo>
       </label>
       <S.Tag parametro="prioridade" prioridade={prioridade}>
-        {prioridade}
+        {exibePrioridade(prioridade)}
       </S.Tag>
       <S.Tag parametro="status" status={status}>
         {exibeStatus(status)}
