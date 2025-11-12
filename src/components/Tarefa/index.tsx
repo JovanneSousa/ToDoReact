@@ -5,7 +5,7 @@ import * as S from './styles'
 import TarefaClass from '../../models/Tarefa'
 import { useDispatch } from 'react-redux'
 import type { AppDispatch } from '../../store'
-import { useState, type ChangeEvent } from 'react'
+import { useState } from 'react'
 
 type Props = TarefaClass
 
@@ -31,6 +31,7 @@ const Tarefa = ({
     setEstaEditando(false)
     setDescricao(descricaoOriginal)
   }
+
   const exibeStatus = (status: enums.Status) => {
     return status === enums.Status.PENDENTE ? 'Pendente' : 'Concluída'
   }
