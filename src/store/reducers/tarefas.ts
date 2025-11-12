@@ -34,7 +34,7 @@ export const cadastrarTarefa = createAsyncThunk(
 export const editarTarefa = createAsyncThunk(
   '/Tarefas/{id}',
   async (tarefa: Tarefa) => {
-    const reponse = await api.put(`/Tarefas/${tarefa.id}`, tarefa)
+    const reponse = await api.put(`api/Tarefa/${tarefa.id}`, tarefa)
     return reponse.data
   }
 )
@@ -42,7 +42,7 @@ export const editarTarefa = createAsyncThunk(
 export const removerTarefa = createAsyncThunk(
   '/Tarefas/Remover',
   async (id: number) => {
-    await api.delete(`/Tarefas/${id}`)
+    await api.post(`api/Tarefa/excluir/${id}`)
     return id
   }
 )
