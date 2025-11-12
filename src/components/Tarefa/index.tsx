@@ -31,24 +31,6 @@ const Tarefa = ({
     setEstaEditando(false)
     setDescricao(descricaoOriginal)
   }
-
-  const alteraStatusTarefa = (e: ChangeEvent<HTMLInputElement>) => {
-    const novoStatus = e.target.checked
-      ? enums.Status.CONCLUIDA
-      : enums.Status.PENDENTE
-
-    dispatch(
-      editarTarefa({
-        id,
-        titulo,
-        descricao,
-        prioridade,
-        status: novoStatus,
-        data: new Date().toISOString()
-      })
-    )
-  }
-
   const exibeStatus = (status: enums.Status) => {
     return status === enums.Status.PENDENTE ? 'Pendente' : 'Concluída'
   }
