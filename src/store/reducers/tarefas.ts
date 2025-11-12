@@ -26,7 +26,7 @@ export const buscarTarefas = createAsyncThunk(
 export const cadastrarTarefa = createAsyncThunk(
   '/Tarefas',
   async (tarefa: Omit<Tarefa, 'id'>) => {
-    const response = await api.post<Tarefa>('Tarefas', tarefa)
+    const response = await api.post<Tarefa>('api/Tarefa', tarefa)
     return response.data
   }
 )
