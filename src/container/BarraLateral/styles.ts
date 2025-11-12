@@ -10,4 +10,8 @@ export const Filtros = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 8px;
   margin-top: 16px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `

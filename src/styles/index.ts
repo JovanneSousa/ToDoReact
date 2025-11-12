@@ -15,6 +15,10 @@ const EstiloGlobal = createGlobalStyle`
 export const Container = styled.div`
   display: grid;
   grid-template-columns: 224px auto;
+
+  @media (max-width: 768px ) {
+    grid-template-columns: 30vw auto;
+  }
 `
 
 export const MainContainer = styled.main`
