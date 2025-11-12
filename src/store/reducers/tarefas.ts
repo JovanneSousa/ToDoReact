@@ -15,18 +15,15 @@ const initialState: TarefasState = {
   error: null
 }
 
-export const buscarTarefas = createAsyncThunk(
-  '/Tarefa/ObterTodos',
-  async () => {
-    const response = await api.get<Tarefa[]>('api/Tarefa/ObterTodos')
-    return response.data
-  }
-)
+export const buscarTarefas = createAsyncThunk('obterTodos', async () => {
+  const response = await api.get<Tarefa[]>('api/Tarefa/ObterTodos')
+  return response.data
+})
 
 export const cadastrarTarefa = createAsyncThunk(
-  '/Tarefas',
+  'cadastrar',
   async (tarefa: Omit<Tarefa, 'id'>) => {
-    const response = await api.post<Tarefa>('Tarefas', tarefa)
+    const response = await api.post<Tarefa>('api/Tarefas', tarefa)
     return response.data
   }
 )

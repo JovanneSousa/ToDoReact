@@ -4,7 +4,6 @@ import { MainContainer, Titulo } from '../../styles'
 import { AppDispatch, RootReducer } from '../../store'
 import { useEffect } from 'react'
 import { buscarTarefas } from '../../store/reducers/tarefas'
-import { Status } from '../../utils/enums/Tarefa'
 
 const ListaDeTarefas = () => {
   const dispatch = useDispatch<AppDispatch>()
