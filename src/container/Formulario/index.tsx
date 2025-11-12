@@ -1,14 +1,14 @@
 import { useDispatch } from 'react-redux'
-import { FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { BotaoSalvar, MainContainer, Titulo } from '../../styles/'
 import { Campo } from '../../styles'
 import { Form, Opcoes, Opcao } from './styles'
 import * as enums from '../../utils/enums/Tarefa'
-import { AppDispatch } from '../../store'
 import { cadastrarTarefa } from '../../store/reducers/tarefas'
 import { exibePrioridade } from '../../components/Tarefa'
+import type { AppDispatch } from '../../store'
+import { useState, type FormEvent } from 'react'
 
 const Formulario = () => {
   const dispatch = useDispatch<AppDispatch>()

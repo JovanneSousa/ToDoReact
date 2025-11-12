@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import Tarefa from '../../models/Tarefa'
 import * as enums from '../../utils/enums/Tarefa'
 import { api } from '../../services/api'
@@ -23,7 +23,7 @@ export const buscarTarefas = createAsyncThunk('obterTodos', async () => {
 export const cadastrarTarefa = createAsyncThunk(
   'cadastrar',
   async (tarefa: Omit<Tarefa, 'id'>) => {
-    const response = await api.post<Tarefa>('api/Tarefas', tarefa)
+    const response = await api.post<Tarefa>('api/Tarefa', tarefa)
     return response.data
   }
 )
@@ -31,7 +31,7 @@ export const cadastrarTarefa = createAsyncThunk(
 export const editarTarefa = createAsyncThunk(
   '/Tarefas/{id}',
   async (tarefa: Tarefa) => {
-    const reponse = await api.put(`/Tarefas/${tarefa.id}`, tarefa)
+    const reponse = await api.put(`api/Tarefa/${tarefa.id}`, tarefa)
     return reponse.data
   }
 )
@@ -39,7 +39,7 @@ export const editarTarefa = createAsyncThunk(
 export const removerTarefa = createAsyncThunk(
   '/Tarefas/Remover',
   async (id: number) => {
-    await api.delete(`/Tarefas/${id}`)
+    await api.post(`api/Tarefa/excluir/${id}`)
     return id
   }
 )

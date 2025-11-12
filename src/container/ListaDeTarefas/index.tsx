@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
 import Tarefa from '../../components/Tarefa'
 import { MainContainer, Titulo } from '../../styles'
-import { AppDispatch, RootReducer } from '../../store'
 import { useEffect } from 'react'
 import { buscarTarefas } from '../../store/reducers/tarefas'
+import type { AppDispatch, RootReducer } from '../../store'
 
 const ListaDeTarefas = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -13,7 +13,6 @@ const ListaDeTarefas = () => {
   )
 
   useEffect(() => {
-    console.log('Vai chamar a API')
     dispatch(buscarTarefas())
   }, [dispatch])
 
