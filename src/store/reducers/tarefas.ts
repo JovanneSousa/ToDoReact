@@ -36,6 +36,18 @@ export const editarTarefa = createAsyncThunk(
   }
 )
 
+export const editarStatus = createAsyncThunk(
+  'atualizaStatus',
+  async ({id, status}: {id: number, status: enums.Status}) => {
+    await api.post(`api/Tarefa/atualiza-status/${id}`, status, 
+      {
+        headers: { 'Content-Type': 'application/json' }
+      }
+    )
+    return id
+  }
+)
+
 export const removerTarefa = createAsyncThunk(
   '/Tarefas/Remover',
   async (id: number) => {
@@ -82,6 +94,13 @@ const tarefasSlice = createSlice({
       })
       .addCase(removerTarefa.fulfilled, (state, action) => {
         state.itens = state.itens.filter((t) => t.id !== action.payload)
+      })
+      .addCase(editarStatus.fulfilled, (state, action) => {
+        const { id, status } = action.meta.arg; 
+        const tarefa = state.itens.find((t) => t.id === id);
+        if (tarefa) {
+          tarefa.status = status; 
+        }
       })
   }
 })

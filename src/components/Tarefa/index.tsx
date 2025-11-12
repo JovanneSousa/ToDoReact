@@ -1,4 +1,4 @@
-import { editarTarefa, removerTarefa } from '../../store/reducers/tarefas'
+import { editarStatus, editarTarefa, removerTarefa } from '../../store/reducers/tarefas'
 import * as enums from '../../utils/enums/Tarefa'
 import { Botao, BotaoSalvar } from '../../styles'
 import * as S from './styles'
@@ -58,7 +58,7 @@ const Tarefa = ({
       <label htmlFor={titulo}>
         <input
           checked={status === enums.Status.CONCLUIDA}
-          onChange={alteraStatusTarefa}
+          onChange={(e) => dispatch(editarStatus({id, status: e.target.checked ? enums.Status.CONCLUIDA : enums.Status.PENDENTE}))}
           type="checkbox"
           id={titulo}
         />
