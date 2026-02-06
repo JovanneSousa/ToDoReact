@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import {
+  createAsyncThunk,
+  createSlice,
+  type PayloadAction
+} from '@reduxjs/toolkit'
 import Tarefa from '../../models/Tarefa'
 import * as enums from '../../utils/enums/Tarefa'
 import { api } from '../../services/api'
@@ -38,12 +42,10 @@ export const editarTarefa = createAsyncThunk(
 
 export const editarStatus = createAsyncThunk(
   'atualizaStatus',
-  async ({id, status}: {id: number, status: enums.Status}) => {
-    await api.post(`api/Tarefa/atualiza-status/${id}`, status, 
-      {
-        headers: { 'Content-Type': 'application/json' }
-      }
-    )
+  async ({ id, status }: { id: number; status: enums.Status }) => {
+    await api.put(`api/Tarefa/atualiza-status/${id}`, status, {
+      headers: { 'Content-Type': 'application/json' }
+    })
     return id
   }
 )
@@ -51,7 +53,7 @@ export const editarStatus = createAsyncThunk(
 export const removerTarefa = createAsyncThunk(
   '/Tarefas/Remover',
   async (id: number) => {
-    await api.post(`api/Tarefa/excluir/${id}`)
+    await api.delete(`api/Tarefa/excluir/${id}`)
     return id
   }
 )
@@ -96,10 +98,10 @@ const tarefasSlice = createSlice({
         state.itens = state.itens.filter((t) => t.id !== action.payload)
       })
       .addCase(editarStatus.fulfilled, (state, action) => {
-        const { id, status } = action.meta.arg; 
-        const tarefa = state.itens.find((t) => t.id === id);
+        const { id, status } = action.meta.arg
+        const tarefa = state.itens.find((t) => t.id === id)
         if (tarefa) {
-          tarefa.status = status; 
+          tarefa.status = status
         }
       })
   }
