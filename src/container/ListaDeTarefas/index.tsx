@@ -4,7 +4,6 @@ import { MainContainer, Titulo } from '../../styles'
 import { useEffect } from 'react'
 import { buscarTarefas } from '../../store/reducers/tarefas'
 import type { AppDispatch, RootReducer } from '../../store'
-
 const ListaDeTarefas = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { itens } = useSelector((state: RootReducer) => state.tarefas)

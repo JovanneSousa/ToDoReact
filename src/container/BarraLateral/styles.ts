@@ -1,9 +1,15 @@
 import styled from 'styled-components'
+import { breakpoints } from '../../styles'
 
 export const Aside = styled.aside`
   padding: 16px;
   background-color: #eee;
   height: 100vh;
+  display: none;
+
+  @media (min-width: ${breakpoints.laptop}) {
+    display: block;
+  }
 `
 export const Filtros = styled.div`
   display: grid;
