@@ -1,6 +1,12 @@
 import styled, { createGlobalStyle } from 'styled-components'
 import variaveis from './variaveis'
 
+export const breakpoints = {
+  tablet: '768px',
+  laptop: '1024px',
+  desktop: '1280px'
+}
+
 const EstiloGlobal = createGlobalStyle`
   *{
     margin: 0;
@@ -10,13 +16,21 @@ const EstiloGlobal = createGlobalStyle`
     list-style: none;
     text-decoration: none;
   }
+
+  #root {
+    width: 100%;
+    display: flex;
+  }
+
+  .container {
+    width: 100%;
+  }
 `
 
 export const Container = styled.div`
-  display: grid;
-  grid-template-columns: 224px auto;
+  width: 100%;
 
-  @media (max-width: 768px ) {
+  @media (max-width: 768px) {
     grid-template-columns: 30vw auto;
   }
 `
@@ -25,6 +39,7 @@ export const MainContainer = styled.main`
   padding: 0 40px;
   height: 100vh;
   overflow-y: scroll;
+  width: 100%;
 `
 
 export const Titulo = styled.h2`
