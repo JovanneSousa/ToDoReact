@@ -1,4 +1,8 @@
-import { editarStatus, editarTarefa, removerTarefa } from '../../store/reducers/tarefas'
+import {
+  editarStatus,
+  editarTarefa,
+  removerTarefa
+} from '../../store/reducers/tarefas'
 import * as enums from '../../utils/enums/Tarefa'
 import { Botao, BotaoSalvar } from '../../styles'
 import * as S from './styles'
@@ -8,13 +12,6 @@ import type { AppDispatch } from '../../store'
 import { useState } from 'react'
 
 type Props = TarefaClass
-
-export const exibePrioridade = (prioridade: enums.Prioridade) => {
-  if (prioridade == enums.Prioridade.URGENTE) return 'Urgente'
-  if (prioridade == enums.Prioridade.IMPORTANTE) return 'Importante'
-
-  return 'Normal'
-}
 
 const Tarefa = ({
   descricao: descricaoOriginal,
@@ -41,7 +38,16 @@ const Tarefa = ({
       <label htmlFor={titulo}>
         <input
           checked={status === enums.Status.CONCLUIDA}
-          onChange={(e) => dispatch(editarStatus({id, status: e.target.checked ? enums.Status.CONCLUIDA : enums.Status.PENDENTE}))}
+          onChange={(e) =>
+            dispatch(
+              editarStatus({
+                id,
+                status: e.target.checked
+                  ? enums.Status.CONCLUIDA
+                  : enums.Status.PENDENTE
+              })
+            )
+          }
           type="checkbox"
           id={titulo}
         />
@@ -51,7 +57,7 @@ const Tarefa = ({
         </S.Titulo>
       </label>
       <S.Tag parametro="prioridade" prioridade={prioridade}>
-        {exibePrioridade(prioridade)}
+        {enums.exibePrioridade(prioridade)}
       </S.Tag>
       <S.Tag parametro="status" status={status}>
         {exibeStatus(status)}
