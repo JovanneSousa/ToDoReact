@@ -36,10 +36,14 @@ export const Container = styled.div`
 `
 
 export const MainContainer = styled.main`
-  padding: 0 40px;
+  padding: 0 8px;
   height: 100vh;
   overflow-y: scroll;
   width: 100%;
+
+  @media (min-width: ${breakpoints.laptop}) {
+    padding: 0 40px;
+  }
 `
 
 export const Titulo = styled.h2`

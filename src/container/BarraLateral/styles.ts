@@ -4,10 +4,14 @@ import { breakpoints } from '../../styles'
 export const Aside = styled.aside`
   padding: 16px;
   background-color: #eee;
-  height: 100vh;
-  display: none;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  min-height: 70px;
 
   @media (min-width: ${breakpoints.laptop}) {
+    position: inherit;
+    width: auto;
     display: block;
   }
 `
@@ -20,4 +24,11 @@ export const Filtros = styled.div`
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
+`
+
+export const BottomBar = styled.ul`
+  display: flex;
+  padding: 0 16px;
+  justify-content: space-between;
+  position: relative;
 `
