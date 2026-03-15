@@ -9,7 +9,7 @@ import { Botao, Campo } from '../../styles'
 import type { AppDispatch, RootReducer } from '../../store'
 import type { Props } from '.'
 
-const DesktopNavBar = ({ mostrarFiltros }: Props) => {
+const DesktopNavBar = ({ mostrarFiltros }: Omit<Props, 'activeTabs'>) => {
   const dispatch = useDispatch<AppDispatch>()
   const { termo } = useSelector((state: RootReducer) => state.filtro)
   const navigate = useNavigate()
