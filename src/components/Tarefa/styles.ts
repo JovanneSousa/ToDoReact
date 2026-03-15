@@ -42,7 +42,9 @@ export const Titulo = styled.h3`
   margin-left: 8px;
 `
 
-export const Tag = styled.span<TagProps>`
+export const Tag = styled.span.withConfig({
+  shouldForwardProp: (props) => !['props'].includes(props)
+})<TagProps>`
   padding: 4px 8px;
   font-size: 10px;
   font-weight: bold;
