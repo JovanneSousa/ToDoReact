@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux'
 import Tarefa from '../../components/Tarefa'
-import { MainContainer, Titulo } from '../../styles'
+import { Campo, MainContainer, Titulo } from '../../styles'
 import { useEffect } from 'react'
 import { buscarTarefas } from '../../store/reducers/tarefas'
 import type { AppDispatch, RootReducer } from '../../store'
+import { alteraTermo } from '../../store/reducers/Filtro'
 const ListaDeTarefas = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { itens } = useSelector((state: RootReducer) => state.tarefas)
@@ -58,6 +59,12 @@ const ListaDeTarefas = () => {
   return (
     <MainContainer>
       <Titulo as="p">{mensagem}</Titulo>
+      <Campo
+        onChange={(e) => dispatch(alteraTermo(e.target.value))}
+        type="text"
+        placeholder="Buscar Tarefas"
+        value={termo}
+      ></Campo>
       <ul>
         {tarefas.map((t) => (
           <li key={t.titulo}>

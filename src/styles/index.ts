@@ -17,13 +17,28 @@ const EstiloGlobal = createGlobalStyle`
     text-decoration: none;
   }
 
+  a {
+    text-decoration: none;
+    color: ${({theme}) => theme.text};
+  }
+
   #root {
     width: 100%;
     display: flex;
+    color: ${({ theme }) => theme.text}
+  }
+
+  #root, main {
+    background-color: ${({ theme }) => theme.background};
   }
 
   .container {
     width: 100%;
+  }
+
+  .shadow {
+      box-shadow:    0 0 15px rgba(0, 0, 0, 0.12),
+    0 0 6px rgba(0, 0, 0, 0.08);
   }
 `
 
@@ -36,16 +51,20 @@ export const Container = styled.div`
 `
 
 export const MainContainer = styled.main`
-  padding: 0 40px;
+  padding: 0 8px;
   height: 100vh;
   overflow-y: scroll;
   width: 100%;
+
+  @media (min-width: ${breakpoints.laptop}) {
+    padding: 0 40px;
+  }
 `
 
 export const Titulo = styled.h2`
   display: block;
   margin-top: 40px;
-  margin-bottom: 40px;
+  margin-bottom: 22px;
   font-size: 18px;
   font-weight: bold;
 `
@@ -56,6 +75,7 @@ export const Campo = styled.input`
   background-color: #fff;
   font-weight: bold;
   width: 100%;
+  margin-bottom: 16px;
 `
 
 export const Botao = styled.button`

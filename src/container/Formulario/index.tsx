@@ -6,7 +6,6 @@ import { Campo } from '../../styles'
 import { Form, Opcoes, Opcao } from './styles'
 import * as enums from '../../utils/enums/Tarefa'
 import { cadastrarTarefa } from '../../store/reducers/tarefas'
-import { exibePrioridade } from '../../components/Tarefa'
 import type { AppDispatch } from '../../store'
 import { useState, type FormEvent } from 'react'
 
@@ -67,7 +66,7 @@ const Formulario = () => {
                     defaultChecked={prioridade === enums.Prioridade.NORMAL}
                   />{' '}
                   <label htmlFor={`prioridade-${prioridade}`}>
-                    {exibePrioridade(prioridade as enums.Prioridade)}
+                    {enums.exibePrioridade(prioridade as enums.Prioridade)}
                   </label>
                 </Opcao>
               )

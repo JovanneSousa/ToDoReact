@@ -1,7 +1,15 @@
 import { Circulo } from './styles'
 
-const BotaoAdicionar = () => {
-  return <Circulo to="/novo">+</Circulo>
+interface BotaoProps {
+  className?: string
+}
+
+const BotaoAdicionar = ({ className }: BotaoProps) => {
+  return (
+    <Circulo className={className} to="/novo">
+      +
+    </Circulo>
+  )
 }
 
 export default BotaoAdicionar

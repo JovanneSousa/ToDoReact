@@ -23,7 +23,7 @@ const retornaCorDeFundo = (props: TagProps): string => {
 }
 
 export const Card = styled.div`
-  background-color: #fcfcfc;
+  background-color: ${({ theme }) => theme.secondar};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 16px;
   margin-bottom: 32px;
@@ -42,7 +42,9 @@ export const Titulo = styled.h3`
   margin-left: 8px;
 `
 
-export const Tag = styled.span<TagProps>`
+export const Tag = styled.span.withConfig({
+  shouldForwardProp: (props) => !['props'].includes(props)
+})<TagProps>`
   padding: 4px 8px;
   font-size: 10px;
   font-weight: bold;
