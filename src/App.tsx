@@ -5,11 +5,11 @@ import EstiloGlobal from './styles'
 import store from './store'
 import Rotas from './Routes'
 import { ThemeProvider } from 'styled-components'
-import { useState } from 'react'
 import { darkTheme, lightTheme } from './styles/theme'
 
 function App() {
-  const [darkMode, setDarkMode] = useState(true)
+  const darkMode = true
+
   return (
     <Provider store={store}>
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
